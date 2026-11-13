@@ -1,0 +1,16 @@
+# R
+.Rhistory
+.RData
+.Rapp.history
+.Rproj.user/
+*.Rproj
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Logs / scratch
+*.log
