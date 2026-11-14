@@ -2,6 +2,10 @@
 
 **A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
+<p align="center">
+  <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
+</p>
+
 When the Second Avenue Subway (Q line, Phase 1) opened on **1 January 2017**, it gave the
 Upper East Side its first new rapid-transit spine in decades. This project asks whether that
 new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) in the
@@ -10,10 +14,6 @@ corridor it serves — and estimates the size of the substitution.
 **Headline result:** ride-hailing demand in the treated corridor fell by **about 10%**
 relative to the rest of Manhattan after the line opened. The preferred estimate is
 **−10.6%** (a pre-trend-matched synthetic control); estimators range from **−7% to −13%**.
-
-<p align="center">
-  <img src="analysis/map_treatment.png" width="340" alt="Treated Upper East Side taxi zones vs. control zones across Manhattan">
-</p>
 
 ---
 
@@ -27,6 +27,10 @@ city-wide trend — the latter being substantial, since ride-hailing was growing
 the time. Because treatment timing is common to all treated zones, the design is immune to the
 staggered-adoption pathologies (Goodman-Bacon, de Chaisemartin–D'Haultfœuille) that complicate
 many modern DiD studies.
+
+<p align="center">
+  <img src="analysis/map_treatment.png" width="340" alt="Treated Upper East Side taxi zones vs. control zones across Manhattan">
+</p>
 
 ## Headline results
 
