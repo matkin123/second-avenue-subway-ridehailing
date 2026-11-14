@@ -85,6 +85,7 @@ Every check lives in a numbered, runnable script under [`analysis/`](analysis/).
 | Spatial spillover (donut / Butts 2023 ring / SLX) | `10_spatial_spillover.R` | SUTVA / interference from neighbouring control zones |
 | Hausman / FE-vs-RE (Mundlak-Wu) | `11_hausman.R` | estimator choice, with the degenerate-Hausman explained |
 | 52-zone contiguous subset | `12_did_robustness_52zones.R` | a tighter, fully-contiguous spatial subsample |
+| Residual diagnostics | `13_residual_diagnostics.R` | residual behaviour across the three headline estimators — leftover trend, serial correlation, heteroskedasticity |
 
 A note on identification: the fixed-effects estimator is correct **by design** here — subway
 proximity is correlated with time-invariant zone traits (income, density, land use), so a
@@ -92,6 +93,32 @@ random-effects assumption fails. `11_hausman.R` documents why the textbook Hausm
 returns a degenerate p ≈ 1 (all covariates are a single cross-section, so the within estimator
 drops them) and replaces it with a balance table, a cluster-robust Mundlak-Wu test (p ≈ 0.07,
 leaning FE), and a side-by-side FE/RE comparison (they agree to within 0.5%).
+
+### Residual diagnostics
+
+`13_residual_diagnostics.R` inspects the residuals of the three headline estimators — the
+per-zone synthetic control, the 61-zone two-way FE DiD, and the 58-zone residential-core DiD.
+Residual meaning differs by method: the fixed-effects residuals have the treatment effect
+removed (so a clean fit shows no structure), while a synthetic-control residual is
+`observed − synthetic`, which equals fit error before the opening and the ATT itself after it.
+
+Over time, the fixed-effects residuals sit on zero for both treated and control groups with no
+pre-2017 drift — no leftover trend or serial structure survives the model. The synthetic-control
+panel hugs zero through 2016 (pre-period fit error, mean |resid| ≈ 0.016) and then drops to
+≈ −0.11 after January 2017, which is the estimated effect rather than misfit.
+
+<p align="center">
+  <img src="analysis/resid_over_time_61_58_scm.png" width="820" alt="Residuals over time for the three headline specifications">
+</p>
+
+Against fitted values the residuals form an even band around zero with a near-flat loess and
+only mild level-dependence at low-ridership zone-months — consistent with the cluster-robust
+standard errors used throughout. The synthetic-control panel is restricted to the pre-period,
+the only window where a residual means fit error for all three estimators.
+
+<p align="center">
+  <img src="analysis/resid_vs_fitted_61_58_scm.png" width="820" alt="Residuals vs fitted values for the three headline specifications">
+</p>
 
 ## Repository layout
 
@@ -103,7 +130,7 @@ leaning FE), and a side-by-side FE/RE comparison (they agree to within 0.5%).
 │   └── MN.csv                NYC PLUTO land-use records (Manhattan)
 ├── analysis/
 │   ├── 00_map_treatment.R    treatment-vs-control map
-│   ├── 01_build_ridehailing.R … 12_did_robustness_52zones.R
+│   ├── 01_build_ridehailing.R … 13_residual_diagnostics.R
 │   ├── *.rds                 committed checkpoints (lets you skip the rebuild)
 │   ├── *.png                 figures
 │   ├── *.csv                 result tables
