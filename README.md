@@ -1,5 +1,9 @@
 # Did the Second Avenue Subway reduce ride-hailing demand?
 
+**A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
+
+---
+
 When the Second Avenue Subway (Q line, Phase 1) opened on **1 January 2017**, it gave the
 Upper East Side and East Harlem their first new rapid-transit spine in decades. This project asks whether that
 new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) in the
@@ -18,8 +22,6 @@ relative to the rest of Manhattan after the line opened. The preferred estimate 
 ---
 
 ## Design in one paragraph
-
-**A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
 Monthly ride-hailing trip counts are observed for Manhattan taxi zones across 2016–2017.
 Seven zones along the new line (the Upper East Side / Yorkville corridor) are the **treatment**
