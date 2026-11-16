@@ -5,7 +5,7 @@
 ---
 
 When the Second Avenue Subway (Q line, Phase 1) opened on **1 January 2017**, it gave the
-Upper East Side and East Harlem their first new rapid-transit spine in decades. This project asks whether that
+Upper East Side and East Harlem their first new rapid-transit spine since the Lexington Avenue Line opened in 1918. This project asks whether that
 new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) in the
 corridor it serves — and estimates the size of the substitution.
 
