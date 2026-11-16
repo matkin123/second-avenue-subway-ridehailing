@@ -2,8 +2,6 @@
 
 **A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
----
-
 When the Second Avenue Subway (Q line, Phase 1) opened on **1 January 2017**, it gave the
 Upper East Side and East Harlem their first new rapid-transit spine since the Lexington Avenue Line opened in 1918. This project asks whether that
 new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) in the
