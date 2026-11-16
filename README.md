@@ -45,6 +45,25 @@ many modern DiD studies.
 
 **Honest range: −7% to −13%, central estimate ≈ −10%.**
 
+**Why these estimators, and why synthetic control leads.** No single number is trusted on its
+own — the design triangulates across methods whose assumptions fail in different ways. The
+two-way fixed-effects DiD is the conventional workhorse: it absorbs each zone's fixed level and
+each month's city-wide shock, which is exactly why it is the right estimator here (subway
+proximity is correlated with time-invariant zone traits like income and density, so a
+random-effects model would be biased). But it buys identification with a *parallel-trends
+assumption* — that the treated corridor would have grown like the Manhattan average absent the
+subway. That assumption is untestable after 2017, and the HonestDiD bounds show the −13% TWFE
+point estimate sits at the pessimistic edge of what the pre-trends can actually support.
+
+The synthetic control is preferred because it replaces that assumption with a *fit*. Rather than
+compare the corridor to the raw control average, it builds a weighted blend of control zones that
+reproduces the corridor's 2016 trajectory almost exactly (RMSPE ≈ 0.003) — so the counterfactual
+demonstrably tracked the treated group before the line opened, instead of being assumed to. The
+per-zone version fits a bespoke synthetic twin for each of the seven treated zones and then
+averages, which also respects the fact that those zones differ in income, density, and baseline
+ride-hailing levels. Its −10.6% estimate lands between the conservative pooled-synthetic floor
+(−7%) and the TWFE upper edge (−13%), which is why it anchors the headline.
+
 ### The story in one chart
 
 The treated-zone mean and its synthetic counterfactual track almost perfectly through 2016,
@@ -62,13 +81,6 @@ and every post-period month is negative.
 
 <p align="center">
   <img src="analysis/event_study_61.png" width="760" alt="Event study, 61-zone sample">
-</p>
-
-Raw ridership by group shows the context: both groups rise together through 2016 (the
-ride-hailing boom), with the treated corridor's growth bending down after the opening.
-
-<p align="center">
-  <img src="analysis/trajectories_61_raw.png" width="760" alt="Mean ride-hailing trips per zone per month, by group">
 </p>
 
 ## Robustness suite
