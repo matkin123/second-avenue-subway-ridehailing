@@ -1,8 +1,6 @@
 # Did the Second Avenue Subway reduce ride-hailing demand?
 
-**A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
-
-<p align="center"><strong>The story in one chart</strong></p>
+**The story in one chart**
 
 <p align="center">
   <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
@@ -20,6 +18,8 @@ relative to the rest of Manhattan after the line opened. The preferred estimate 
 ---
 
 ## Design in one paragraph
+
+**A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
 Monthly ride-hailing trip counts are observed for Manhattan taxi zones across 2016–2017.
 Seven zones along the new line (the Upper East Side / Yorkville corridor) are the **treatment**
