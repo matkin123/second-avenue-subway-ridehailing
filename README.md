@@ -1,11 +1,5 @@
 # Did the Second Avenue Subway reduce ride-hailing demand?
 
-**The story in one chart**
-
-<p align="center">
-  <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
-</p>
-
 When the Second Avenue Subway (Q line, Phase 1) opened on **1 January 2017**, it gave the
 Upper East Side its first new rapid-transit spine in decades. This project asks whether that
 new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) in the
@@ -14,6 +8,12 @@ corridor it serves — and estimates the size of the substitution.
 **Headline result:** ride-hailing demand in the treated corridor fell by **about 10%**
 relative to the rest of Manhattan after the line opened. The preferred estimate is
 **−10.6%** (a pre-trend-matched synthetic control); estimators range from **−7% to −13%**.
+
+**The story in one chart**
+
+<p align="center">
+  <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
+</p>
 
 ---
 
