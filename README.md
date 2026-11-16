@@ -17,8 +17,6 @@ relative to the rest of Manhattan after the line opened. The preferred estimate 
   <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
 </p>
 
----
-
 ## Design in one paragraph
 
 Monthly ride-hailing trip counts are observed for Manhattan taxi zones across 2016–2017.
