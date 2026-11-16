@@ -2,6 +2,8 @@
 
 **A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
+<p align="center"><strong>The story in one chart</strong></p>
+
 <p align="center">
   <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
 </p>
@@ -64,7 +66,7 @@ averages, which also respects the fact that those zones differ in income, densit
 ride-hailing levels. Its −10.6% estimate lands between the conservative pooled-synthetic floor
 (−7%) and the TWFE upper edge (−13%), which is why it anchors the headline.
 
-### The story in one chart
+### The counterfactual that fits
 
 The treated-zone mean and its synthetic counterfactual track almost perfectly through 2016,
 then separate after the line opens in January 2017 — the treated corridor grows more slowly
