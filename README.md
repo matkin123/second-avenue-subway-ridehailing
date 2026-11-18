@@ -19,16 +19,15 @@ relative to the rest of Manhattan after the line opened. The preferred estimate 
 
 ## Design in one paragraph
 
-When the Second Avenue Subway finally opened, did people take fewer Ubers? That's harder to
-answer than it sounds, because 2016 and 2017 were the years ride-hailing took off in NYC. A
-rise along the new line tells you little on its own. What matters is how demand there changed
-compared with everywhere else. Using monthly ride-hailing trip counts for every Manhattan
-neighborhood across 2016–2017, I treat the seven zones along the new line (the Upper East Side
-and Yorkville corridor) as the treatment group and the rest of Manhattan as controls. A
-difference-in-differences design then isolates how far treated-zone demand moved after January
-2017, over and above the city-wide trend. Because treatment timing is common to all treated
-zones, the design is immune to the staggered-adoption pathologies (Goodman-Bacon, de
-Chaisemartin–D'Haultfœuille) that complicate many modern DiD studies.
+Ride-hailing grew rapidly across New York in 2016 and 2017, so a rise in trips near the new
+line says little on its own; what matters is how demand changed relative to the rest of the
+city. Using monthly ride-hailing trip counts for every Manhattan neighborhood over 2016–2017,
+I treat the seven zones along the new line (the Upper East Side and Yorkville corridor) as the
+treatment group and the remaining Manhattan zones as controls. A difference-in-differences
+design then isolates the change in treated-zone demand after January 2017, net of the city-wide
+trend. Because the line opened in all treated zones at once, the design avoids the
+staggered-adoption problems (Goodman-Bacon; de Chaisemartin and D'Haultfœuille) that complicate
+many recent DiD studies.
 
 <p align="center">
   <img src="analysis/map_treatment.png" width="340" alt="Treated Upper East Side taxi zones vs. control zones across Manhattan">
