@@ -1,4 +1,4 @@
-# Did the Second Avenue Subway reduce ride-hailing demand?
+# How did the new Second Avenue Subway impact ride-hailing in NYC?
 
 **A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
