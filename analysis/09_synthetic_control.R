@@ -126,6 +126,87 @@ avg_att_perzone <- mean(rowMeans(per_zone_mat)[post_idx])
 cat(sprintf("\nAverage across 7 per-zone SCMs: avg post ATT = %+0.4f log-pts (%+0.1f%%)\n",
             avg_att_perzone, (exp(avg_att_perzone)-1)*100))
 
+# --- Placebo / permutation inference (Abadie) -----------------------------
+# Reassign "treatment" to each control zone in turn, fit a synthetic control for
+# it from the OTHER controls, and compare the real treated corridor's post/pre
+# RMSPE ratio to this placebo distribution. This is the SCM analogue of a p-value:
+# a real effect should make the treated unit an outlier among the placebos.
+cat("\n========== Placebo (permutation) inference ==========\n")
+ratio_treated <- post_rmspe / pre_rmspe
+placebo <- lapply(ctrl_col_ids, function(c0) {
+  donors <- setdiff(ctrl_col_ids, c0)
+  yv  <- Y[, c0]; Yd <- Y[, donors]
+  wv  <- Variable(ncol(Yd))
+  pr  <- Problem(Minimize(sum((yv[pre_idx] - Yd[pre_idx, ] %*% wv)^2)),
+                 list(wv >= 0, sum(wv) == 1))
+  wh  <- as.numeric(solve(pr)$getValue(wv))
+  g   <- yv - as.numeric(Yd %*% wh)
+  data.frame(zone = c0, month = months, gap = g,
+             pre_rmspe  = sqrt(mean(g[pre_idx]^2)),
+             post_rmspe = sqrt(mean(g[post_idx]^2)),
+             avg_post   = mean(g[post_idx]))
+})
+placebo_df <- bind_rows(placebo)
+pl_sum <- placebo_df %>% group_by(zone) %>%
+  summarise(pre_rmspe = first(pre_rmspe), post_rmspe = first(post_rmspe),
+            ratio = first(post_rmspe)/first(pre_rmspe),
+            avg_post = first(avg_post), .groups = "drop")
+
+treated_pre_rmspe <- pre_rmspe   # treated aggregate pre-period fit, for the filter below
+p_ratio <- (sum(pl_sum$ratio >= ratio_treated) + 1) / (nrow(pl_sum) + 1)
+p_gap   <- (sum(pl_sum$avg_post <= avg_att) + 1) / (nrow(pl_sum) + 1)  # effect is negative
+# standard Abadie practice: exclude placebos that cannot even fit their own
+# pre-period (pre-RMSPE > 2x the treated fit), so bad fits can't fake a big effect.
+well    <- pl_sum %>% filter(pre_rmspe <= 2 * treated_pre_rmspe)
+p_ratio_wf <- (sum(well$ratio >= ratio_treated) + 1) / (nrow(well) + 1)
+cat(sprintf("Treated post/pre RMSPE ratio = %.2f\n", ratio_treated))
+cat(sprintf("Permutation p (RMSPE ratio), all %d controls:          %.3f\n",
+            nrow(pl_sum), p_ratio))
+cat(sprintf("Permutation p (RMSPE ratio), %d well-fitting placebos:  %.3f\n",
+            nrow(well), p_ratio_wf))
+cat(sprintf("Permutation p (avg gap as negative as treated):        %.3f\n", p_gap))
+write.csv(pl_sum, file.path(BUILD, "scm_placebo_summary.csv"), row.names = FALSE)
+
+p3 <- ggplot() +
+  geom_hline(yintercept = 0, color = "gray60") +
+  geom_vline(xintercept = treat_date, linetype = "dashed", color = "red") +
+  geom_line(data = placebo_df, aes(month, gap, group = zone),
+            color = "gray75", alpha = 0.6, size = 0.3) +
+  geom_line(data = data.frame(month = months, gap = att), aes(month, gap),
+            color = "firebrick", size = 1.2) +
+  scale_x_date(date_labels = "%b %Y", date_breaks = "3 months") +
+  labs(title = "Placebo (permutation) test: treated gap vs. control-zone placebos",
+       subtitle = sprintf(paste0("Red = real treated corridor. Each gray line = a control zone ",
+                                 "treated as a fake intervention.\nPermutation p = %.3f (RMSPE ratio, all controls)."),
+                          p_ratio),
+       x = NULL, y = "gap: observed - synthetic (log-points)") +
+  theme_minimal()
+ggsave(file.path(BUILD, "scm_placebo_61.png"), p3, width = 10, height = 5.5, dpi = 130)
+
+# --- Leave-one-donor-out (aggregate SCM robustness) -----------------------
+cat("\n========== Leave-one-donor-out (aggregate SCM) ==========\n")
+pos_donors <- (w_df %>% filter(weight > 0.01))$zone
+loo_don <- sapply(pos_donors, function(d) {
+  donors <- setdiff(ctrl_col_ids, d); Yd <- Y[, donors]
+  wv <- Variable(ncol(Yd))
+  pr <- Problem(Minimize(sum((y_treated[pre_idx] - Yd[pre_idx, ] %*% wv)^2)),
+                list(wv >= 0, sum(wv) == 1))
+  wh <- as.numeric(solve(pr)$getValue(wv))
+  mean((y_treated - as.numeric(Yd %*% wh))[post_idx])
+})
+cat(sprintf("Full-donor avg ATT:   %+0.4f (%+0.1f%%)\n", avg_att, (exp(avg_att)-1)*100))
+cat(sprintf("Drop-one-donor range: %+0.4f to %+0.4f  (%+0.1f%% to %+0.1f%%)\n",
+            min(loo_don), max(loo_don), (exp(min(loo_don))-1)*100, (exp(max(loo_don))-1)*100))
+
+# --- Leave-one-treated-zone-out (per-zone estimate robustness) -------------
+cat("\n========== Leave-one-treated-zone-out (per-zone avg) ==========\n")
+tj <- sapply(seq_along(treat_col_ids), function(i)
+  mean(rowMeans(per_zone_mat[, -i, drop = FALSE])[post_idx]))
+cat(sprintf("Per-zone avg ATT:       %+0.4f (%+0.1f%%)\n",
+            avg_att_perzone, (exp(avg_att_perzone)-1)*100))
+cat(sprintf("Drop-one-treated range: %+0.4f to %+0.4f  (%+0.1f%% to %+0.1f%%)\n",
+            min(tj), max(tj), (exp(min(tj))-1)*100, (exp(max(tj))-1)*100))
+
 # per-zone avg is the primary SCM estimate (targets the same ATT estimand as the
 # TWFE DiD); the pooled aggregate is the conservative floor.
 summary_tbl <- data.frame(

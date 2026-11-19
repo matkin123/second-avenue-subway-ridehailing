@@ -14,3 +14,8 @@
 
 # Logs / scratch
 *.log
+
+# Local preview / explainer HTML (kept on disk, not published)
+residual_diagnostics.html
+README_diff.html
+README_revised_preview.html
