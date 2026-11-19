@@ -8,8 +8,9 @@ new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) i
 corridor it serves — and estimates the size of the substitution.
 
 **Headline result:** ride-hailing demand in the treated corridor fell by **about 10%**
-relative to the rest of Manhattan after the line opened. The preferred estimate is
-**−10.6%** (a pre-trend-matched synthetic control); estimators range from **−7% to −13%**.
+relative to the rest of Manhattan after the line opened — **roughly −980,000 trips in 2017 alone**.
+The preferred estimate is **−10.6%** (a pre-trend-matched synthetic control); estimators range from
+**−7% to −13%**.
 
 **The story in one chart**
 
@@ -37,8 +38,8 @@ many recent DiD studies.
 
 | Estimator | Effect | Notes |
 |---|---:|---|
-| **Synthetic control, per-zone average (preferred)** | **−10.6%** | near-perfect pre-treatment fit (RMSPE ≈ 0.003) |
-| Two-way fixed-effects DiD (61-zone main) | −13.2% | cluster-robust SE 0.055; wild-cluster *p* ≈ 0.06 with only 7 treated zones; ≈ −10k trips/zone/mo |
+| **Synthetic control, per-zone average (preferred)** | **−10.6%** | bespoke synthetic twin per zone, averaged; pooled permutation *p* = 0.003 |
+| Two-way fixed-effects DiD (61-zone main) | −13.2% | cluster-robust SE 0.055; wild-cluster *p* ≈ 0.06 with only 7 treated zones |
 | TWFE + group-specific linear trend | −9.0% | shrinks but survives |
 | Drop month of opening (Dec '16 / Jan '17) | −13.2% / −14.0% | insensitive to the transition month |
 | Synthetic control, pooled | −7.0% | conservative floor (plotted below) |
