@@ -8,7 +8,7 @@ new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) i
 corridor it serves — and estimates the size of the substitution.
 
 **Headline result:** ride-hailing demand in the treated corridor fell by **about 10%**
-relative to the rest of Manhattan after the line opened — **roughly −980,000 trips in 2017 alone**.
+relative to the rest of Manhattan after the line opened, **roughly −980,000 trips in 2017 alone**.
 The preferred estimate is **−10.6%** (a pre-trend-matched synthetic control); estimators range from
 **−7% to −13%**.
 
