@@ -3,8 +3,9 @@
 **A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
 This study measures how an extraordinary intervention into New York City's public
-transportation system—the introduction of the Second Avenue Subway—shifted mobility behavior.
-A 2018 study by the NYC Department of Transportation found that the subway created major changes:
+transportation system—the introduction of the Second Avenue Subway on January 1st 2017—shifted
+mobility behavior. A 2018 study by the NYC Department of Transportation found that the subway
+created major changes:
 
 - 82% of the new subway's riders switched from the Lexington Avenue line, which by 2007 had
   become the most crowded subway line in America.
