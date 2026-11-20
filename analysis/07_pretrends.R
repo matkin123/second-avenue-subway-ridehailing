@@ -212,7 +212,7 @@ p1 <- ggplot(ec, aes(month, estimate, color=period)) +
   geom_point(size=2.8) +
   geom_line(data=pre_fit_df, aes(month, estimate), inherit.aes=FALSE,
             color="steelblue", linetype="dashed", linewidth=0.7) +
-  annotate("text", x=as.Date("2016-01-15"), y=0.08,
+  annotate("text", x=as.Date("2016-01-15"), y=-0.23,
            label=sprintf("pre-period slope: %+0.4f/mo (p=%s)",
                          slope, format.pval(slope_p)),
            hjust=0, size=3.3, color="steelblue") +

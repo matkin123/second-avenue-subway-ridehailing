@@ -87,12 +87,15 @@ print(round(quantile(perm_avgpost, c(.05,.25,.5,.75,.95)), 4))
 
 # ---- figure: the pooled permutation distribution ----
 n_beat <- sum(perm_avgpost <= t_avgpost)
-gg <- ggplot(data.frame(avg = perm_avgpost), aes(avg)) +
-  geom_histogram(bins = 60, fill = "gray78", color = "white") +
+gg_base <- ggplot(data.frame(avg = perm_avgpost), aes(avg)) +
+  geom_histogram(bins = 60, fill = "gray78", color = "white")
+bar_max <- max(ggplot_build(gg_base)$data[[1]]$count)   # tallest bar: annotation headroom
+gg <- gg_base +
   geom_vline(xintercept = t_avgpost, color = "firebrick", size = 1.1) +
-  annotate("text", x = t_avgpost, y = Inf,
+  annotate("text", x = t_avgpost, y = bar_max * 1.08,
            label = sprintf("  treated corridor  %+.1f%%  (p = %.3f)", pct(t_avgpost), p_cavallo_gap),
-           hjust = 0, vjust = 1.8, color = "firebrick", size = 4) +
+           hjust = 0, vjust = 0, color = "firebrick", size = 4) +
+  scale_y_continuous(expand = expansion(mult = c(0.02, 0.16))) +
   labs(title = "Pooled permutation test: treated corridor vs. random seven-zone control groups",
        subtitle = sprintf(paste0("Each bar counts random groups of 7 control zones by their average post-2017 gap (%s draws).\n",
                                   "Only %d of %s groups fell as far as the real corridor."),
