@@ -2,15 +2,30 @@
 
 **A difference-in-differences study of the Q line extension's effect on Uber/Lyft trips in Manhattan, 2016–2017.**
 
-When the Second Avenue Subway (Q line, Phase 1) opened on **January 1st 2017**, it gave the
-Upper East Side and East Harlem their first new rapid-transit spine since the Lexington Avenue Line opened in 1918. This project asks whether that
-new transit capacity pulled riders away from for-hire ride-hailing (Uber/Lyft) in the
-corridor it serves — and estimates the size of the substitution.
+This study measures how an extraordinary intervention into New York City's public
+transportation system—the introduction of the Second Avenue Subway—shifted mobility behavior.
+A 2018 study by the NYC Department of Transportation found that the subway created major changes:
 
-**Headline result:** ride-hailing demand in the treated corridor fell by **about 10%**
-relative to the rest of Manhattan after the line opened, **roughly −980,000 trips in 2017 alone**.
-The preferred estimate is **−10.6%** (a pre-trend-matched synthetic control); estimators range from
-**−7% to −13%**.
+- 82% of the new subway's riders switched from the Lexington Avenue line, which by 2007 had
+  become the most crowded subway line in America.
+- Yellow-taxi demand fell 11% citywide but 36% in areas neighboring new stations; ridehailing
+  demand grew 42% across Manhattan but only 35% in those same areas.
+- Southbound driving speeds rose on Second and Lexington Avenues (compared to First and Third
+  Avenues), relieving Manhattan congestion delays that the Mayor's office appraised at $14.7
+  billion in 2016.
+
+The Department of Transportation documented these shifts descriptively but never estimated the
+causal effect on ridehailing. This study aims to fill the gap, and contribute to a broader
+literature about the impact of transit interventions.
+
+**Why this matters:** Cities spend billions on rail partly to pull trips off congested streets,
+yet whether ridehailing substitutes or complements transit remains unsettled and highly local.
+The answer shapes congestion pricing, emissions, and how the next transit project is justified.
+
+**Headline result:** Ridehailing in treated areas declined 10% compared to multiple control
+groups tested in this study. The effect is robust to multiple model specifications and
+treatment/control group selections. Across comparison groups, the decline spans 7–13%, and 10%
+is the midpoint — i.e., **roughly 980,000 fewer ridehailing trips in 2017 alone.**
 
 **The story in one chart**
 
@@ -42,7 +57,7 @@ many recent DiD studies.
 | Two-way fixed-effects DiD (61-zone main) | −13.2% | cluster-robust SE 0.055; wild-cluster *p* ≈ 0.06 with only 7 treated zones |
 | TWFE + group-specific linear trend | −9.0% | shrinks but survives |
 | Drop month of opening (Dec '16 / Jan '17) | −13.2% / −14.0% | insensitive to the transition month |
-| Synthetic control, pooled | −7.0% | conservative floor (plotted below) |
+| Synthetic control, pooled | −7.0% | conservative floor |
 | HonestDiD (relative-magnitudes) | CI stays negative | strict Mbar = 0 bound ≈ [−21%, −6.7%] |
 
 **Honest range: −7% to −13%, central estimate ≈ −10%** — a robust direction, held with moderate
@@ -66,16 +81,6 @@ per-zone version fits a bespoke synthetic twin for each of the seven treated zon
 averages, which also respects the fact that those zones differ in income, density, and baseline
 ride-hailing levels. Its −10.6% estimate lands between the conservative pooled-synthetic floor
 (−7%) and the TWFE upper edge (−13%), which is why it anchors the headline.
-
-### The counterfactual that fits
-
-The treated-zone mean and its synthetic counterfactual track almost perfectly through 2016,
-then separate after the line opens in January 2017 — the treated corridor grows more slowly
-than its synthetic twin.
-
-<p align="center">
-  <img src="analysis/scm_aggregate_61.png" width="760" alt="Synthetic control: treated mean vs. synthetic counterfactual">
-</p>
 
 ### Parallel trends and the event study
 
