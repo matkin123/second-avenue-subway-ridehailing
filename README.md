@@ -59,10 +59,15 @@ many recent DiD studies.
 | TWFE + group-specific linear trend | −9.0% | shrinks but survives |
 | Drop month of opening (Dec '16 / Jan '17) | −13.2% / −14.0% | insensitive to the transition month |
 | Synthetic control, pooled | −7.0% | conservative floor |
-| HonestDiD (relative-magnitudes) | CI stays negative | strict Mbar = 0 bound ≈ [−21%, −6.7%] |
+| HonestDiD (relative-magnitudes) | [−21%, −6.7%] at Mbar = 0 | breakdown Mbar ≈ 0.2 — the robust CI admits zero once allowed trend violations reach a quarter of the largest pre-period deviation; a fragility check, not corroboration |
 
 **Honest range: −7% to −13%, central estimate ≈ −10%** — a robust direction, held with moderate
 rather than overwhelming statistical confidence (see [Residual & inference diagnostics](#residual--inference-diagnostics)).
+
+**Which number to cite for significance:** the synthetic-control permutation (raw-gap *p* = 0.003) — it
+matches the per-zone-average estimand and treats the contiguous corridor as a single object rather than
+seven independent clusters; the TWFE wild-cluster bootstrap (*p* ≈ 0.06) corroborates it, and the
+pre-fit-normalized SCM tests (*p* ≈ 0.11) are the conservative floor.
 
 **Why these estimators, and why synthetic control leads.** No single number is trusted on its
 own — the design triangulates across methods whose assumptions fail in different ways. The
@@ -85,8 +90,12 @@ ride-hailing levels. Its −10.6% estimate lands between the conservative pooled
 
 ### Parallel trends and the event study
 
-Pre-period event-study coefficients sit on zero (pre-trend slope +0.002 log-pts/mo, p = 0.49),
-and every post-period month is negative.
+The pre-period carries no linear trend (slope +0.002 log-pts/mo, *p* = 0.49) and only two of eleven
+pre-period coefficients individually clear zero; a joint test nonetheless rejects perfect flatness
+(*F* = 6.25), reflecting month-to-month wiggle rather than a trend — which is why the effect is bounded
+with HonestDiD rather than rested on an eyeballed parallel-trends claim. Every post-period month is
+negative, and the full drop arrives in the first month (−0.13 in January 2017, with no gradual ramp) —
+the sharp onset of a supply shock, not a slowly diverging trend.
 
 <p align="center">
   <img src="analysis/event_study_61.png" width="760" alt="Event study, 61-zone sample">
@@ -119,77 +128,77 @@ leaning FE), and a side-by-side FE/RE comparison (they agree to within 0.5%).
 ### Residual & inference diagnostics
 
 `13_residual_diagnostics.R` inspects the residuals of the two headline estimators — the per-zone
-synthetic control and the 61-zone two-way FE DiD. Residual meaning differs by method: the
-fixed-effects residuals have the treatment effect removed (a clean fit shows no structure), while a
-synthetic-control residual is `observed − synthetic`, equal to fit error before the opening and the
-ATT itself after it.
+synthetic control and the 61-zone two-way FE DiD. The two carry opposite meaning by construction: the
+TWFE residual has the treatment effect removed (a clean fit shows no structure), while a
+synthetic-control residual is `observed − synthetic` — fit error before the opening, the ATT itself
+after.
 
 <p align="center">
   <img src="analysis/resid_over_time_61_scm.png" width="760" alt="Residuals over time for the synthetic control and the 61-zone two-way FE DiD">
 </p>
 
-By construction the two panels should look different, and they do. With the effect absorbed, the
-TWFE residuals scatter around zero in *both* periods — no post-2017 step, so the panel reads as a
-serial-correlation check rather than a second parallel-trends test (a role the event study already
-fills). The synthetic-control panel behaves oppositely: `treated − synthetic` hugs zero through 2016
-(fit error, mean |resid| ≈ 0.016) then steps down to ≈ −0.11 after January 2017 — that step *is* the
-estimated effect, not misfit. Neither plot can reveal serial correlation within a zone's own residual
-stream, which the formal tests below address.
+So the panels read differently. With the effect absorbed, the TWFE residuals scatter around zero in
+both periods — no post-2017 step and no residual trend, which is what this panel actually checks;
+serial correlation *within* a zone is invisible to the eye here and is left to the formal tests below.
+The synthetic-control panel does the opposite: `treated − synthetic` hugs zero through 2016 (mean
+|resid| ≈ 0.016) then steps down to ≈ −0.11 after January 2017 — that step is the estimate, not misfit.
 
 <p align="center">
   <img src="analysis/resid_vs_fitted_61_scm.png" width="760" alt="Residuals vs fitted values for the synthetic control and the 61-zone two-way FE DiD">
 </p>
 
-Against fitted values the residuals form an even band around zero with a near-flat loess and only
-mild level-dependence at low-ridership zone-months — the mild heteroskedasticity the cluster-robust
-errors already accommodate. The synthetic-control panel is restricted to the pre-period, the only
-window in which its residual reflects fit error rather than the treatment effect.
+Against fitted values the residuals sit in a roughly even band, but the loess traces a shallow
+inverted-U — slightly positive for mid-ridership zone-months, slightly negative at the extremes. The
+curvature is small (≈ 0.05 log-points) and the cluster-robust errors are agnostic to it, but it is mild
+functional-form structure rather than a perfectly flat fit, and is named here as such.
 
-**The formal tests, and what they imply for the standard errors.** Within-zone serial
-correlation is strong, not absent (Wooldridge and Breusch–Godfrey both reject overwhelmingly,
-p < 1e-15), which is precisely why the cluster-robust errors are essential rather than cosmetic;
-the residuals are also cross-sectionally dependent, and locally so (Pesaran CD z = 6.2 across all
-zone pairs, 24.9 among adjacent zones), because the month effects remove city-wide but not
-neighborhood-level shocks. The standard error on the −13% TWFE estimate (−0.142 in log points,
-the scale the SEs are reported on) therefore turns on how much of that dependence it is allowed to
-carry:
+**The formal tests, and what they imply for the standard errors.** Within-zone serial correlation is
+strong (Wooldridge and Breusch–Godfrey both reject at *p* < 1e-15), which is exactly why the
+cluster-robust errors are essential rather than cosmetic. The residuals are also cross-sectionally
+dependent, and locally so (Pesaran CD *z* = 6.2 across all zone pairs, 24.9 among adjacent zones),
+because month effects remove city-wide but not neighborhood-level shocks — the same local dependence the
+donut and Butts-ring specifications (`10_spatial_spillover.R`) are built to rule out as spillover, and
+the effect survives both (−13.1% in the donut; a negligible +1.4% n.s. ring term). The standard error on
+the −13% estimate then turns on how much of that dependence it is allowed to carry:
 
-| Standard-error method | SE on −0.142 | *p* |
-|---|---:|---:|
-| naïve i.i.d. (assumes independence) | 0.017 | < 1e-15 |
-| Conley spatial-HAC (2 km, 3-month kernel) | 0.029 | 7e-7 |
-| cluster by zone | 0.055 | 0.010 |
-| wild cluster bootstrap (7 treated zones) | — | 0.058 |
+| Standard-error method | SE on −0.142 | *p* | valid with 7 treated zones? |
+|---|---:|---:|:---:|
+| naïve i.i.d. | 0.017 | < 1e-15 | ✗ |
+| Conley spatial-HAC (2 km, 3-month) | 0.029 | 7e-7 | ✗ |
+| cluster by zone | 0.055 | 0.010 | partial |
+| **wild cluster bootstrap (null imposed)** | — | **0.058** | **✓** |
 
-Reading down the table is the story: the more dependence the errors absorb, the wider they get and
-the weaker the significance. The Conley errors come out *smaller* than the zone-clustered ones — not
-because spatial correlation is negligible, but because the spatial-HAC kernel caps serial dependence
-at a few months' lag while zone-clustering lets it run unrestricted across all 24 — so spatial
-dependence, though real, is not the binding constraint. What binds is the small number of treated
-units: with only seven treated zones the asymptotic cluster-robust p of 0.01 is optimistic, and the
-wild cluster bootstrap (Cameron–Gelbach–Miller, null imposed) — the appropriate small-sample test —
-puts the 61-zone TWFE at p ≈ 0.06. A leave-one-treated-zone-out jackknife keeps the
-TWFE effect between roughly −12% and −18%, so the direction and magnitude are not the fragile part —
-the precision is.
+Reading down the table is the story: the more dependence the errors absorb, the wider they get. The
+Conley errors land *below* the zone-clustered ones — not because spatial correlation is negligible, but
+because the spatial-HAC kernel caps serial dependence at a few months' lag while zone-clustering lets it
+run across all 24 — so spatial dependence, though real, is not the binding constraint. What binds is the
+treated count, and even seven overstates it: the treated zones are contiguous and share the local shocks
+the CD test flags, so the *effective* number of treated clusters is nearer one than seven. The
+asymptotic *p* = 0.01 is therefore optimistic, the wild cluster bootstrap (Cameron–Gelbach–Miller) puts
+the TWFE at *p* ≈ 0.06 (Rademacher and Webb 6-point weights agree, 0.05–0.06 across seeds), and the
+honest inference leans on the synthetic-control permutation below, which sidesteps clustering by treating
+the whole corridor as one unit. A leave-one-treated-zone-out jackknife holds the effect between −12% and
+−18% — direction and magnitude are not the fragile part; the precision is.
 
-**Synthetic-control placebo inference.** For the synthetic control the natural test is not
-residual-vs-fitted but a permutation (Abadie, Diamond and Hainmueller 2010): reassigning the
-intervention to each control zone in turn and comparing the real corridor's gap to the resulting
-placebo distribution. Because the headline is the *per-zone* average effect, the matching inference
-pools the seven zones after fitting them separately (Cavallo, Galiani, Noy and Pantano 2013):
-average the seven estimated gaps, then compare that average to the gaps from 5,000 random
-seven-zone control groups. The −10.6% corridor drop is unlikely to be chance — only sixteen of
-those 5,000 groups fell as far (raw-gap permutation p = 0.003). One caveat: tests that reward a zone
-for an unusually *steady* pre-period are more equivocal (RMSPE-ratio and Dube–Zipperer rank both
-p ≈ 0.11–0.12), because the treated zones were ordinary rather than especially calm beforehand; the
-corridor's strength is the size and consistency of its drop, not an exceptionally quiet baseline. Leave-one-out tells the same story. The per-zone −10.6% average is stable when any single
-treated zone is dropped (−9.4% to −11.9%), though the underlying per-zone effects range widely, from
-about −2% at the corridor ends (East Harlem South, Upper East Side South) to −14% to −17% in the
-Yorkville and Lenox Hill West zones that sit on the new 72nd-, 86th- and 96th-Street stations.
+**Synthetic-control placebo inference.** The natural test here is a permutation (Abadie, Diamond and
+Hainmueller 2010): reassign the intervention to control zones that never got the subway, refit a
+synthetic for each, and ask how often a placebo gap falls as far as the real corridor's. Because the
+headline is the *per-zone* average, the matching inference fits the seven treated zones separately then
+pools them (Cavallo, Galiani, Noy and Pantano 2013): average the seven gaps and compare that average to
+the averaged gaps of 5,000 random seven-zone control groups. Only sixteen fell as far — raw-gap
+permutation *p* = 0.003.
 
 <p align="center">
-  <img src="analysis/scm_pooled_placebo_61.png" width="820" alt="Pooled permutation test: the treated corridor's average post-2017 drop sits in the far-left tail of the distribution of average drops for random seven-zone control groups">
+  <img src="analysis/scm_pooled_placebo_61.png" width="820" alt="Pooled permutation: the corridor's average post-2017 drop sits in the far-left tail of random seven-zone control groups">
 </p>
+
+One caveat: the synthetic fits 2016 almost perfectly (RMSPE ≈ 0.003), but with twelve pre-period months
+against fifty-four donors that fit partly interpolates pre-period noise, which flatters the post-period
+gap. That is why the tests rewarding an unusually *steady* baseline are more equivocal (RMSPE-ratio and
+Dube–Zipperer rank both *p* ≈ 0.11) — the corridor's strength is the size and of its drop, not a quiet
+baseline. Leave-one-out agrees: the −10.6% average is stable when any single treated zone is dropped
+(−9.4% to −11.9%), while the per-zone effects range from about −2% at the corridor ends to −14% to −17%
+in the Yorkville and Lenox Hill West zones on the new 72nd-, 86th- and 96th-Street stations.
 
 ## Repository layout
 
