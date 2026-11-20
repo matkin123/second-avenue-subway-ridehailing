@@ -195,7 +195,7 @@ permutation *p* = 0.003.
 One caveat: the synthetic fits 2016 almost perfectly (RMSPE ≈ 0.003), but with twelve pre-period months
 against fifty-four donors that fit partly interpolates pre-period noise, which flatters the post-period
 gap. That is why the tests rewarding an unusually *steady* baseline are more equivocal (RMSPE-ratio and
-Dube–Zipperer rank both *p* ≈ 0.11) — the corridor's strength is the size and of its drop, not a quiet
+Dube–Zipperer rank both *p* ≈ 0.11) — the corridor's strength is the size of its drop, not a quiet
 baseline. Leave-one-out agrees: the −10.6% average is stable when any single treated zone is dropped
 (−9.4% to −11.9%), while the per-zone effects range from about −2% at the corridor ends to −14% to −17%
 in the Yorkville and Lenox Hill West zones on the new 72nd-, 86th- and 96th-Street stations.
