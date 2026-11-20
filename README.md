@@ -7,21 +7,21 @@ transportation system—the introduction of the Second Avenue Subway on January 
 mobility behavior. A 2018 study by the NYC Department of Transportation found that the subway
 created major changes:
 
-- 82% of the new subway's riders switched from the Lexington Avenue line, which by 2007 had
+- **82%** of the new subway's riders switched from the Lexington Avenue line, which by 2007 had
   become the most crowded subway line in America.
-- Yellow-taxi demand fell 11% citywide but 36% in areas neighboring new stations; ridehailing
-  demand grew 42% across Manhattan but only 35% in those same areas.
+- Yellow-taxi demand fell 11% citywide but **36%** in areas neighboring new stations.
 - Southbound driving speeds rose on Second and Lexington Avenues (compared to First and Third
-  Avenues), relieving Manhattan congestion delays that the Mayor's office appraised at $14.7
-  billion in 2016.
+  Avenues), relieving Manhattan congestion delays that the Mayor's office appraised at **$14.7
+  billion** in 2016.
 
 The Department of Transportation documented these shifts descriptively but never estimated the
 causal effect on ridehailing. This study aims to fill the gap, and contribute to a broader
 literature about the impact of transit interventions.
 
-**Why this matters:** Cities spend billions on rail partly to pull trips off congested streets,
-yet whether ridehailing substitutes or complements transit remains unsettled and highly local.
-The answer shapes congestion pricing, emissions, and how the next transit project is justified.
+**Why this matters:** Cities spend billions on rail partly to pull trips off congested streets;
+the Second Avenue Subway was the most expensive per-mile transit project in the world. Yet
+whether ridehailing substitutes or complements transit remains unsettled and highly local. The
+answer shapes congestion pricing, emissions, and how the next transit project is justified.
 
 **Headline result:** Ridehailing in treated areas declined ~10% compared to multiple control
 groups tested in this study. The effect is robust to multiple model specifications and
