@@ -26,7 +26,7 @@ answer shapes congestion pricing, emissions, and how the next transit project is
 **Headline result:** Ridehailing in treated areas declined ~10% compared to multiple control
 groups tested in this study. The effect is robust to multiple model specifications and
 treatment/control group selections. Across comparison groups, the decline spans 7–13%, and 10%
-is the midpoint — i.e., **roughly 980,000 fewer ridehailing trips in 2017 alone.**
+is the midpoint — i.e., **roughly 1 million fewer ridehailing trips in 2017 alone.**
 
 **The story in one chart**
 
