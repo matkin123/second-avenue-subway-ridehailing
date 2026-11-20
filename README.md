@@ -19,7 +19,7 @@ causal effect on ridehailing. This study aims to fill the gap, and contribute to
 literature about the impact of transit interventions.
 
 **Why this matters:** Cities spend billions on rail partly to pull trips off congested streets;
-the Second Avenue Subway was the most expensive per-mile transit project in the world. Yet
+the Second Avenue Subway was the world's most expensive per-mile transit project. Yet
 whether ridehailing substitutes or complements transit remains unsettled and highly local. The
 answer shapes congestion pricing, emissions, and how the next transit project is justified.
 
