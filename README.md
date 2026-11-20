@@ -34,7 +34,7 @@ is the midpoint — i.e., **roughly 1 million fewer ridehailing trips in 2017 al
   <img src="analysis/fig_subway_ridehailing.png" width="820" alt="Subway ridership increased after the Q line opened, while ride-hailing in the treated corridor fell below its counterfactual">
 </p>
 
-## Design in one paragraph
+## Research Design
 
 Ride-hailing grew rapidly across New York in 2016 and 2017, so a rise in trips near the new
 line says little on its own; what matters is how demand changed relative to the rest of the
